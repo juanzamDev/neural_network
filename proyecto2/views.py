@@ -27,11 +27,11 @@ def main(request):
 def prediccion(request):
     
     # Cargue de los datos
-    data1 = pd.read_csv('/home/jose/Documentos/GitHub/proyecto2/proyecto2/dataset/Youtube01-Psy.csv')
-    data2 = pd.read_csv('/home/jose/Documentos/GitHub/proyecto2/proyecto2/dataset/Youtube02-KatyPerry.csv')
-    data3 = pd.read_csv('/home/jose/Documentos/GitHub/proyecto2/proyecto2/dataset/Youtube03-LMFAO.csv')
-    data4 = pd.read_csv('/home/jose/Documentos/GitHub/proyecto2/proyecto2/dataset/Youtube04-Eminem.csv')
-    data5 = pd.read_csv('/home/jose/Documentos/GitHub/proyecto2/proyecto2/dataset/Youtube05-Shakira.csv')
+    data1 = pd.read_csv('proyecto2/dataset/Youtube01-Psy.csv')#0,0
+    data2 = pd.read_csv('proyecto2/dataset/Youtube02-KatyPerry.csv')#0,'
+    data3 = pd.read_csv('proyecto2/dataset/Youtube03-LMFAO.csv')
+    data4 = pd.read_csv('proyecto2/dataset/Youtube04-Eminem.csv')
+    data5 = pd.read_csv('proyecto2/dataset/Youtube05-Shakira.csv')
 
     # Se concatenan los archivos para generar el CORPUS
     data = pd.concat([data1, data2, data3, data4, data5])
@@ -42,7 +42,8 @@ def prediccion(request):
     x_train, x_test, y_train, y_test = preprocessing(data)
 
     # Definición del modelo
-    inputs = tf.keras.Input(227,)
+    inputs = tf.keras.Input(shape=(227,))
+
     x = tf.keras.layers.Embedding(input_dim = 3821, output_dim = 300)(inputs)
     x = tf.keras.layers.Flatten()(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
