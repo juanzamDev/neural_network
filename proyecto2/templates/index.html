@@ -1,8 +1,8 @@
 <html>
 <head>
-    <title>Prediccion</title>
+    <title>Predicción XOR</title>
     <style>
-        /*Fondo para toda la página*/
+        /* Fondo para toda la página */
         body {
             background-color: #ADD8E6;
             font-family: Arial, sans-serif;
@@ -14,18 +14,18 @@
             text-align: center; 
             display: block; 
             margin: 20px auto; 
-            background-color: #0012b3; /*Color*/
+            background-color: #0012b3; /* Color */
             color: white;
             border: 2px solid black;
-            border-radius: 20px; /*Bordes redondeados*/
+            border-radius: 20px; /* Bordes redondeados */
         }
 
-        /*Efecto cuando el cursor pasa por encima*/
+        /* Efecto cuando el cursor pasa por encima */
         .boton-prediccion:hover {
-            background-color: #001aff; /*Color más claro de azul*/
+            background-color: #001aff; /* Color más claro de azul */
         }
 
-        /*Mejora la apariencia de la tabla*/
+        /* Mejora la apariencia de la tabla */
         table {
             width: 80%;
             border-collapse: collapse;
@@ -42,16 +42,17 @@
             background-color: #f2f2f2;
         }
 
-        /*Estilo para las celdas con texto destacado*/
+        /* Estilo para las celdas con texto destacado */
         td strong {
             font-weight: bold;
         }
     </style>
 </head>
 <body>
+
     <form action="/prediccion/" method="post">
         {% csrf_token %}
-        <h3 style="text-align: center; font-size: 30px;">Esta es una aplicación Django que incluye una red neuronal con Tensorflow</h3>
+        <h3 style="text-align: center; font-size: 30px;">Esta es una aplicación Django que incluye una red neuronal con Tensorflow para la compuerta XOR</h3>
         
         <p>&nbsp;</p>
         <button type="submit" class="boton-prediccion">
@@ -64,28 +65,26 @@
             <thead>
                 <tr>
                     <th>Entradas</th>
-                    <th>Predicciones</th>
-                    <th>Salida</th>
-                    <th>Porcentaje</th>
+                    <th>Predicción</th>
+                    <th>Salida Real</th>
                     <th>Loss</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for fila in prediccion %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
-                        {% if fila.0 >= 0.80 %}
-                            <td style="color: red"><strong>Spam</strong></td>
-                        {% elif fila.0 < 0.80 %}
-                            <td style="color: green"><strong>No Spam</strong></td>
+                        <td>[{{ fila.entrada.0 }}, {{ fila.entrada.1 }}]</td> <!-- Entradas como listas -->
+                        {% if fila.prediccion == 1 %}
+                            <td style="color: red"><strong>1</strong></td>
+                        {% else %}
+                            <td style="color: green"><strong>0</strong></td>
                         {% endif %}
-
-                        <td>{{ fila.0 }}</td>
+                        <td>{{ fila.salida }}</td> <!-- Salida como entero -->
+                        <td>{{ fila.loss }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </form>
- </body>
+</body>
 </html>
