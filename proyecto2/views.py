@@ -6,7 +6,6 @@ from tensorflow.keras.layers import Dense
 
 # -----------------------------------
 def main(request):
-    # *** Plantilla ***
     return render(request, 'index.html', context={})
 
 def prediccion(request):
@@ -39,20 +38,19 @@ def prediccion(request):
     history = model.fit(datos_entrada, datos_salida, epochs=1000, verbose=0)
 
     # Obtener las predicciones del modelo
-    predicciones = model.predict(datos_entrada).round()  # Redondear las predicciones a 0 o 1
+    predicciones = model.predict(datos_entrada).round()
 
     # Pasar las predicciones al contexto
     prediccion_resultado = []
     for i, pred in enumerate(predicciones):
         prediccion_resultado.append({
-            'entrada': [int(x) for x in datos_entrada[i]],  # Entrada (X1, X2)
-            'prediccion': int(pred[0]),   # Convertir la predicción a entero (0 o 1)
-            'salida': int(datos_salida[i][0]),  # Salida real como entero
-            'loss': history.history['loss'][-1]  # Último valor de "loss"
+            'entrada': [int(x) for x in datos_entrada[i]],
+            'prediccion': int(pred[0]),
+            'salida': int(datos_salida[i][0]),
+            'loss': round(history.history['loss'][-1], 4)
         })
 
     # El contexto debe ser un diccionario
     context = {'prediccion': prediccion_resultado}
 
-    # *** Plantilla ***
     return render(request, 'index.html', context=context)
