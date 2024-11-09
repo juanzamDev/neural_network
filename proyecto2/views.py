@@ -28,9 +28,9 @@ def prediccion(request):
     
     # Cargue de los datos
     data1 = pd.read_csv('proyecto2/dataset/Youtube01-Psy.csv')#0,0
-    data2 = pd.read_csv('proyecto2/dataset/Youtube02-KatyPerry.csv')#0,'
-    data3 = pd.read_csv('proyecto2/dataset/Youtube03-LMFAO.csv')
-    data4 = pd.read_csv('proyecto2/dataset/Youtube04-Eminem.csv')
+    data2 = pd.read_csv('proyecto2/dataset/Youtube02-KatyPerry.csv')#0,1
+    data3 = pd.read_csv('proyecto2/dataset/Youtube03-LMFAO.csv')#1,0
+    data4 = pd.read_csv('proyecto2/dataset/Youtube04-Eminem.csv')#1,1
     data5 = pd.read_csv('proyecto2/dataset/Youtube05-Shakira.csv')
 
     # Se concatenan los archivos para generar el CORPUS
